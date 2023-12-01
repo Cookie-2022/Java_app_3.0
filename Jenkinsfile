@@ -104,8 +104,9 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   
-                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}")
+
+                   def dockerCredentials = credentials('docker')
+                   dockerImageCleanup("${params.ImageName}","${params.ImageTag}","${params.DockerHubUser}", dockerCredentials)
                }
             }
         }      
